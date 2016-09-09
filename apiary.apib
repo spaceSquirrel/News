@@ -1,0 +1,155 @@
+FORMAT: 1A
+HOST: https://news.api.squireeltech.space
+
+# Squirrel News API
+Squirrel News is an API for web feed subscribing, notification and management
+
+# Group Users
+Resources related to the user management
+
+## User Collection [/users]
+### List all public users [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "username": "user1",
+                "feeds_link": "/users/user1/feeds"
+            },
+            {
+                "username": "user2",
+                "feeds_link": "/users/user2/feeds"
+            }
+        ]
+
+## User Object [/users/{username}]
+### Get user information [GET]
+
++ Response 200 (application/json)
+
+        {
+            "username": "user2",
+            "feeds_link": "/users/user2/feeds"
+        }
+
+## Feed Collection [/users/{username}/feeds]
+### List of user feeds [GET]
+
++ Response 200 (application/json)
+        
+        [
+            {
+                "feed_id": "0888922c-12e3-4d60-8688-130697d661ec",
+                "name": "A wonderful feed"
+            },
+            {
+                "feed_id": "257d9a32-2247-420f-be8f-81c3bdbfa471",
+                "name": "The mighty feed"
+            }
+        ]
+### Suscribe to a new feed [POST]
+
++ feed_id (string) The feed the user wish to subscribe to
+
++ Request (application/json)
+        
+        {
+            "feed_id": "61bc46a3-1d40-4c50-82c2-cfcfbeedfc21"
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /users/{user1}/feeds/61bc46a3-1d40-4c50-82c2-cfcfbeedfc21
+
+## Feed Unsubscription [/users/{username}/feeds/{feed_id}]
+### Unsubscribe from a feed [DELETE]
+
++ Response 204
+
+## Feed Recommendation collection [/users/{username}/recommendations/feeds]
+### Recommended feed for a given user [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "feed_id": "0888922c-12e3-4d60-8688-130697d661ec",
+                "name": "A wonderful feed"
+            },
+            {
+                "feed_id": "257d9a32-2247-420f-be8f-81c3bdbfa471",
+                "name": "The mighty feed"
+            }
+        ]
+
+## Article Recommendation collection [/users/{username}/recommendation/articles]
+
++ Response 200 (application/json)
+        [
+            {
+                "article_id": "e3bf4851-3396-4869-830e-89596d697264",
+                "title": "An article on tech world"
+            },
+            {
+                "feed_id": "f90afdba-ddb4-4c4b-a16c-fe7d2e0716ea",
+                "name": "An article on women in tech"
+            }
+        ]
+
+# Group Feed
+Resources related to feed management
+
+## Feed Collection [/feeds]
+### List all public feeds [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "feed_id": "0888922c-12e3-4d60-8688-130697d661ec",
+                "name": "A wonderful feed"
+            },
+            {
+                "feed_id": "257d9a32-2247-420f-be8f-81c3bdbfa471",
+                "name": "The mighty feed"
+            }
+        ]
+
+## Feed Object [/feeds/{feed_id}]
+### Get feed information [GET]
+
++ Response 200 (application/json)
+
+        {
+            "feed_id": "0888922c-12e3-4d60-8688-130697d661ec",
+            "name": "A wonderful feed"
+        }
+
+## Article Collection [/feeds/{feed_id}/articles]
+### Get list of articles for a given feed [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "article_id": "e3bf4851-3396-4869-830e-89596d697264",
+                "title": "An article on tech world"
+            },
+            {
+                "feed_id": "f90afdba-ddb4-4c4b-a16c-fe7d2e0716ea",
+                "name": "An article on women in tech"
+            }
+        ]
+
+## Article Object [/feeds/{feed_id}/{article_id}]
+### Article information [GET]
+
++ Response 200 (application/json)
+
+        {
+            "article_id": "e3bf4851-3396-4869-830e-89596d697264",
+            "title": "An article on tech world"
+        }
